@@ -21,6 +21,7 @@ export class BlogListComponent {
   reset() {
     this.blogs = this.defaultBlogs;
     this.changeAction('');
+    this.sortBlogs();
   }
   rechercherBlog(rech: string) {
     this.defaultBlogs = this.blogs;
