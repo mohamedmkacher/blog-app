@@ -1,0 +1,67 @@
+<h3>{{ title }}</h3>
+@if (action==='') {
+<form action="">
+  <input
+    type="text"
+    name="recherche"
+    class="form-control mb-1"
+    value=""
+    #rech
+  />
+  <input
+    type="button"
+    value="Find"
+    class="btn btn-primary mb-3"
+    (click)="rechercherBlog(rech.value)"
+    (click)="changeAction('rech')"
+  />
+</form>
+} @if(action==='rech'){
+<input
+  type="button"
+  value="Cancel"
+  class="btn btn-danger mb-3"
+  (click)="reset()"
+/>
+} @for (blog of blogs; track $index) {
+<div class="col-12 col-md-6 tm-post mb-5">
+  <div class="tm-post-link-inner">
+    <img src="{{ blog.photo }}" alt="Image" class="img-fluid" />
+  </div>
+
+  <h2 class="tm-pt-30 tm-color-primary tm-post-title">{{ blog.title }}</h2>
+
+  <p class="tm-pt-30">
+    {{ blog.description }}
+  </p>
+  <div class="d-flex justify-content-between tm-pt-45">
+    <span class="tm-color-primary">{{ blog.date }}</span>
+    <span class="tm-color-primary">Score : {{ blog.score }} </span>
+    <div>
+      <input
+        type="button"
+        class="btn btn-success"
+        value="+1"
+        (click)="incrementerBlog($index)"
+      /><input
+        type="button"
+        class="btn btn-danger"
+        value="-1"
+        (click)="decrementerBlog($index)"
+      />
+    </div>
+  </div>
+</div>
+} @if (action===''){
+  <input
+  type="button"
+  value="Add blog"
+  class="btn btn-primary mb-3"
+  (click)="changeAction('ajout')"
+/>
+}
+
+@if (action==='ajout') {<app-blog-add
+  (blogCreated)="addBlog($event)"
+></app-blog-add
+>}
